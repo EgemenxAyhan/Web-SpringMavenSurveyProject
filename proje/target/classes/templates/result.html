@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<linkrel="stylesheet"href="/css/style.css">
+		<metacharset="UTF-8">
+		<title>Submission Result</title>
+		<style>		/* Styling the Form (Color, Padding, Shadow) */
+						form {
+							background-color: antiquewhite;
+							max-width: 500px;
+							margin: 50px auto;
+							padding: 30px 20px;
+							box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+						}
+					body {
+								background-color: 			#022B55;
+								font-family: Verdana;
+								text-align: center;
+							}
+						.form-control {
+						
+									text-align: left;
+									margin-bottom: 25px;
+								}
+							h2	{color: antiquewhite;}
+							.form-control span {
+							            display: block; 
+							            margin-bottom: 10px; 
+							        }
+						</style>
+	</head>
+	<body>
+		<h2 th:text="#{surveyFormTitle.result}"></h2>
+		<form>
+		<div class="form-control" th:object="${formData}">
+			<span th:text="#{numericField1}"></span>
+					<span th:text="*{numericField1}"></span>
+
+					<span th:text="#{surname}"></span>
+					<span th:text="*{surname}"></span>
+
+					<span th:text="#{email}"></span>
+					<span th:text="*{email}"></span>
+
+					<span th:text="#{age}"></span>
+					<span th:text="*{age}"></span>				
+
+					<span th:text="#{dateField}"></span>
+					<span th:text="*{#temporals.format(dateField, 'dd.MM.yyyy')}"></span>
+					
+					<span th:text="#{role}"></span>
+					<span th:text="*{role}"></span>
+					
+					
+					<span>Checkbox:</span>
+					<span>
+					<span th:each="option,status: *{checkboxSelection}">
+					<span th:if="${status.last}" th:text="${option} + '.'"></span>
+					<span th:unless="${status.last}" th:text="${option} + ', '"></span>
+					<!--<span th:text="${status.last} == true ? ${item} + '.' : ${item} + ', '"></span>-->
+				    <!--<span th:if="${status.last and status.size > 1}" th:text="End"></span>-->
+				    </span>
+					
+					</span>
+					<span>Radio Button:</span>
+				    <span th:text="*{recommend}"></span>
+					
+						
+
+				</div>
+				</form>
+	</body>
+		</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+	<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0">
+	<title>
+		Web Survey
+	</title>
+	
+
+	<style>
+		error{color: red;}
+		/* Styling the Body element 
+		i.e. Color, Font, Alignment */
+		body {
+			background-color: 			#022B55;
+			font-family: Verdana;
+			text-align: center;
+		}
+
+		/* Styling the Form (Color, Padding, Shadow) */
+		form {
+			background-color: antiquewhite;
+			max-width: 500px;
+			margin: 50px auto;
+			padding: 30px 20px;
+			box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+		}
+
+		/* Styling form-control Class */
+		.form-control {
+			text-align: left;
+			margin-bottom: 25px;
+		}
+
+		/* Styling form-control Label */
+		.form-control label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		/* Styling form-control input, 
+		select, textarea */
+		.form-control input,
+		.form-control select,
+		.form-control textarea {
+			border: 1px solid #777;
+			border-radius: 2px;
+			font-family: inherit;
+			padding: 10px;
+			display: block;
+			width: 95%;
+		}
+
+		/* Styling form-control Radio 
+		button and Checkbox */
+		.form-control input[type="radio"],
+		.form-control input[type="checkbox"] {
+			display: inline-block;
+			width: auto;
+		}
+
+		/* Styling Button */
+		button {
+			background-color: 		#022B55;
+			border: 1px solid #777;
+			border-radius: 2px;
+	
+			font-family: inherit;
+            font-style: italic;
+			font-size: 21px;
+			display: block;
+			width: 100%;
+			margin-top: 50px;
+			margin-bottom: 20px
+	
+		}
+		button::first-line{color:antiquewhite}
+
+		h1	{color: antiquewhite;}
+		.dropdown {
+		            position: absolute;
+		            top: 10px;
+		            left: 10px;
+		            text-align: left;
+		        }
+
+		        .dropdown .dropbtn {
+		            background-color: #022B55;
+		            color: antiquewhite;
+		            padding: 10px;
+		            font-size: 16px;
+		            border: none;
+		            cursor: pointer;
+		            font-family: inherit;
+		        }
+
+		        .dropdown-content {
+		            display: none;
+		            position: absolute;
+		            background-color: #f9f9f9;
+		            min-width: 160px;
+		            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+		            z-index: 1;
+		        }
+
+		        .dropdown-content a {
+		            color: black;
+		            padding: 12px 16px;
+		            text-decoration: none;
+		            display: block;
+		        }
+
+		        .dropdown-content a:hover {
+		            background-color: antiquewhite;
+		        }
+
+		        .dropdown:hover .dropdown-content {
+		            display: block;
+		        }
+
+		        .dropdown:hover .dropbtn {
+		            background-color:#022B55;
+		        }
+	</style>
+</head>
+
+ <body>
+	<div class="dropdown">
+	        <button class="dropbtn">Language</button>
+	        <div class="dropdown-content">
+	            <a href="?language=tr">Türkçe</a>
+	            <a href="?language=en">English</a>
+	            <a href="?language=de">Deutsch</a>
+	        </div>
+	    </div>
+		
+	
+	<h1 th:text="#{surveyFormTitle}"></h1>
+	
+	<form action="/send" method="post" th:object="${formData}">
+
+	<div class="form-control">
+
+	            <label for="name" id="label-name" th:text="#{numericField1}"></label>
+	            <input type="text" id="name" th:placeholder="#{placeholder.name}" th:field="*{numericField1}"/>
+				<div><span th:errors="*{numericField1}" class="error"></span></div>
+<br>
+					 
+					   <label for"surname" id="label-surname" th:text="#{surname}"></label>
+					   <input type="text" id="surname" th:placeholder="#{placeholder.surname}" th:field="*{surname}"/>
+					   				<div><span th:errors="*{surname}" class="error"></span></div>
+									<br>
+	 
+	        
+	            <label for="email" id="label-email" th:text="#{email}">
+	                Email
+	            </label>
+	 
+	           
+	            <input type="email" id="email"
+	                   th:placeholder="#{placeholder.email}" th:field="*{email}" />
+					   <div><span th:errors="*{email}" ></span></div>
+					   <br>
+					   
+					   <label for="confirmEmail" th:text="#{confirmEmail}">Confirm Email</label>
+					   <input type="email" id="confirmEmail" name="confirmEmail" th:field="*{confirmEmail}" th:placeholder="#{placeholder.cmail}"/>
+					   <div><span th:errors="*{confirmEmail}" ></span></div>
+					   <br>
+	            <label for="age" id="label-age" th:text="#{age}">
+	                Age
+	            </label>
+	 
+	            <!-- Input Type Text -->
+	            <input type="text" id="age"
+	                   th:placeholder="#{placeholder.name}" th:field="*{age}"/>
+					   <div><span th:errors="*{age}" ></span></div>
+					   <br>
+					   <label for="dob" th:text="#{dateField}"></label>
+					   			<input type="text" id="dob" th:placeholder="#{placeholder.date}" th:field="*{dateField}">
+					   			<div><span th:errors="*{dateField}" ></span></div>
+					   
+					   
+	       
+								<br>
+	       
+	            <label for="role" id="label-role" th:text="#{role}">
+	                Which option best describes you?
+	            </label>
+	 
+	            <!-- Dropdown options -->
+	            <select name="role" id="role">
+					<option value="" selected disabled th:text="#{selectRole}"></option>
+	                <option value="student" th:text="#{student}"></option>
+	                <option value="intern" th:text="#{intern}"></option>
+	                <option value="professional" th:text="#{professional}">
+	                </option>
+	                <option value="other" th:text="#{other}"></option>
+	            </select>
+	        
+	 
+				<br>
+	            <label th:text="#{recommend}">
+	                Do you want to take Web Programming Class?
+	            </label>
+	 
+	            <!-- Input Type Radio Button -->
+	            <label for="recommend-1">
+	                <input type="radio" id="recommend-1"th:text="#{recommend1}"
+	                       name="recommend" value="Yes">
+	                  </input>
+	            </label>
+	            <label for="recommend-2">
+	                <input type="radio" id="recommend-2" th:text="#{recommend2}"
+	                       name="recommend" value="No" > 
+	                  </input>
+	            </label>
+	            <label for="recommend-3">
+	                <input type="radio" id="recommend-3" th:text="#{recommend3}"
+	                       name="recommend" value="Maybe">
+	                  </input>
+	            </label>
+				
+
+	        
+				<br>
+	       
+	            <label th:text="#{checkboxSelection}">Languages and Frameworks known
+	                <small>(Check all that apply)</small>
+	            </label>
+	            <!-- Input Type Checkbox -->
+	            <label for="inp-1">     
+	                <input type="checkbox" id="inp-1"name="inp" value="Option 1">C
+	                  </input>
+	              </label>
+	            <label for="inp-2">
+	                <input type="checkbox" id="inp-2" name="inp"value="Option 2">C++
+	                  </input>
+	            </label>
+	            <label for="inp-3">
+	                <input type="checkbox" id="inp-3"name="inp" value="Option 3">C#
+	                  </input>
+	            </label>
+	            <label for="inp-4">
+	                <input type="checkbox" id="inp-4"name="inp"value="Option 4">Java
+	                  </input>
+	            </label>
+	            <label for="inp-5">
+	                <input type="checkbox" id="inp-5"name="inp" value="Option 5">Python
+	                  </input>
+	            </label>
+	            <label for="inp-6">
+	                <input type="checkbox" id="inp-6"name="inp" value="Option 6">JavaScript
+	                  </input>
+	            </label>
+	            <label for="inp-7">
+	                <input type="checkbox" id="inp-7"name="inp" value="Option 7">React
+	                  </input>
+	            </label>
+	            <label for="inp-8">
+	                <input type="checkbox" id="inp-8"name="inp"value="Option 8">Angular
+	                  </input>
+	            </label>
+	            <label for="inp-9">
+	                <input type="checkbox" id="inp-9"name="inp" value="Option 9">Django
+	                  </input>
+	            </label>
+	            <label for="inp-10">
+	                <input type="checkbox" id="inp-10"name="inp"value="Option 10">Spring
+	                  </input>
+	            </label>
+				
+
+	        
+	 
+				<br>
+	            <label for="comment" th:text="#{comment}">
+	                Any comments or suggestions
+	            </label>
+	 
+	            <!-- multi-line text input control -->
+	            <textarea name="comment" id="comment"
+	                      placeholder="Enter your comment here">
+	            </textarea>
+	       
+	 
+	        <!-- Multi-line Text Input Control -->
+	        <button type="submit" value="submit" th:text="#{submit}">
+	            
+	        </button>
+
+			</div>
+			</form>
+		
+</body>
+
+</html>
